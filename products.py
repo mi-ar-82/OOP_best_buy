@@ -26,19 +26,28 @@ class Product:
 
 
     def set_quantity(self, quantity: int):
-        pass
+        #Set method for quantity. Deactivates the product if quantity reaches 0.
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative.")
+        self.quantity = quantity
+        if self.quantity == 0:
+            self.deactivate()
 
     def is_active(self) -> bool:
-        pass
+        #checks if the product is active (boolean value)
+        return self.active
 
     def activate(self):
-        pass
+        #activates product
+        self.active = True
 
     def deactivate(self):
-        pass
+        # deactivates product
+        self.active = False
 
     def show(self) -> str:
-        pass
+        #returns a string representation of the product
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
     def buy(self, quantity: int) -> float:
         pass
