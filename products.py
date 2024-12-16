@@ -50,4 +50,18 @@ class Product:
         return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
     def buy(self, quantity: int) -> float:
-        pass
+        #buys a given quantity of the product.
+        #returns the total price of the purchase.
+        #raises an exception if there is insufficient stock or invalid input.
+        if quantity <= 0:
+            raise ValueError("Quantity to buy must be greater than zero.")
+        
+        if quantity > self.quantity:
+            raise ValueError(f"You can not buy {quantity} items.Not enough on stock. Only {self.quantity} available.")
+        
+        # calculates total price and update stock
+        total_price = self.price * quantity
+        #sets new available stock by removing the stock that was just sold
+        self.set_quantity(self.quantity - quantity)
+        
+        return total_price
