@@ -20,3 +20,25 @@ class Product:
         self.quantity = quantity
         self.active = True  # Product is active by default
     
+    def get_quantity(self):
+        # get method for quantity
+        return self.quantity
+
+
+    def set_quantity(self, quantity: int):
+        pass
+
+    def is_active(self) -> bool:
+        pass
+
+    def activate(self):
+        pass
+
+    def deactivate(self):
+        pass
+
+    def show(self) -> str:
+        pass
+
+    def buy(self, quantity: int) -> float:
+        pass
