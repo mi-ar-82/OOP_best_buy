@@ -27,6 +27,41 @@ def show_total_amount(store_obj):
     print(f"\nTotal quantity of items in the store: {total_quantity}")
 
 
+def find_product_by_name(store_obj, product_name):
+    """
+    Searches for a product by name in the store.
+    If an exact match is found, it returns the product.
+    If no exact match is found, it searches for partial matches and prints them.
+
+    :param store_obj: The store object containing products.
+    :param product_name: The name of the product to search for.
+    :return: The exact matching product if found, otherwise None.
+    """
+    # Find exact match
+    product = None
+    for product_item in store_obj.products:
+        if product_item.name.lower() == product_name.lower():
+            product = product_item
+            break
+
+    if not product:
+        # Search for partial matches
+        matching_products = []
+        for product_item in store_obj.products:
+            if product_name.lower() in product_item.name.lower():
+                matching_products.append(product_item)
+
+        if matching_products:
+            print(f"\nProducts matching your search '{product_name}':")
+            for matched_product in matching_products:
+                print(matched_product.show())
+        else:
+            print(f"No products found for the search query '{product_name}'. Please try again.")
+
+    return product
+
+
+
 def make_order(store_obj):
     """
     Allows the user to make an order by specifying product names and quantities.
@@ -36,11 +71,11 @@ def make_order(store_obj):
         product_name = input("\nEnter the product name (or 'done' to finish): ").strip()
         if product_name.lower() == 'done':
             break
-
-        # Find the product by name
-        product = next((p for p in store_obj.products if p.name == product_name), None)
-        if not product:
-            print(f"Product '{product_name}' not found. Please try again.")
+            
+        # Use the find_product_by_name function
+        product = find_product_by_name(store_obj, product_name)
+        
+        if not product:  # If no exact match was returned
             continue
 
         try:
